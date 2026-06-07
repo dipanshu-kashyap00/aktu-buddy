@@ -7,7 +7,15 @@ import HomePage from './pages/HomePage';
 import BranchPage from './pages/BranchPage';
 import SemesterPage from './pages/SemesterPage';
 import SubjectPage from './pages/SubjectPage';
+import SearchPage from './pages/SearchPage';
 import YearPage from './pages/YearPage';
+import CategoryPage from './pages/CategoryPage';
+import AllNotesPage from './pages/AllNotesPage';
+import AllPYQsPage from './pages/AllPYQsPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import DisclaimerPage from './pages/DisclaimerPage';
+import ContactPage from './pages/ContactPage';
 
 
 function App() {
@@ -24,6 +32,14 @@ function App() {
             <Route path="/admin" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/branch/:branchCode/year/:year" element={<YearPage />} />
+            <Route path="/branch/:branchCode/year/:year/:category" element={<CategoryPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/notes" element={<AllNotesPage />} />
+            <Route path="/pyqs" element={<AllPYQsPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/disclaimer" element={<DisclaimerPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
         <Footer />
