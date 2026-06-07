@@ -84,3 +84,4 @@ Admin panel is at /admin (not linked publicly).
 
 ## 🙋 Author
 Dipanshu Kashyap — Lucknow, Uttar Pradesh, India
+
