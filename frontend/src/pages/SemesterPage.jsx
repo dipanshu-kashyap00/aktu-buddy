@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getSubjectsBySemester } from '../services/subjectAPI';
 
 const SemesterPage = () => {
   const { branchCode, semesterNum } = useParams();
@@ -10,13 +10,11 @@ const SemesterPage = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        console.log('Fetching for branch:', branchCode, 'semester:', semesterNum);
-        const response = await axios.get(`http://localhost:5001/api/subjects?branch=${branchCode}&semester=${semesterNum}`);
-        console.log('Response data:', response.data);
+        const response = await getSubjectsBySemester(branchCode, semesterNum);
         setSubjects(response.data);
-        setLoading(false);
       } catch (error) {
         console.error('Error fetching subjects:', error);
+      } finally {
         setLoading(false);
       }
     };
@@ -38,7 +36,7 @@ const SemesterPage = () => {
           Semester {semesterNum}
         </h1>
         <p className="text-center text-gray-600 mb-12">{branchCode} Branch</p>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {subjects.map((subject) => (
             <Link
@@ -48,14 +46,12 @@ const SemesterPage = () => {
             >
               <div className="text-sm text-primary font-medium mb-2">{subject.code}</div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">{subject.name}</h3>
-              <div className="flex justify-between items-center mt-4">
-                <span className="text-xs text-gray-500">Click to access materials →</span>
-              </div>
+              <span className="text-xs text-gray-500">Click to access materials →</span>
             </Link>
           ))}
         </div>
-        
-        {subjects.length === 0 && (
+
+        {subjects.length === 0 && !loading && (
           <div className="text-center text-gray-500 py-12">
             No subjects found for this semester.
           </div>

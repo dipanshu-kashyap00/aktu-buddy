@@ -30,29 +30,4 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-// POST create first admin (run once)
-router.post('/setup', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        
-        const existingAdmin = await Admin.findOne({ email });
-        if (existingAdmin) {
-            return res.status(400).json({ error: 'Admin already exists' });
-        }
-        
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const admin = new Admin({
-            email,
-            password: hashedPassword,
-            role: 'admin'
-        });
-        
-        await admin.save();
-        res.json({ message: 'Admin created successfully', admin: { email: admin.email } });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
 module.exports = router;
