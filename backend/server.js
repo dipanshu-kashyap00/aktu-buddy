@@ -43,6 +43,17 @@ app.use('/api/subjects', subjectRoutes);
 app.use('/api/branches', branchRoutes);
 app.use('/api/admin', adminRoutes);
 
+// limiting on API — server can be hammered
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message: { error: 'Too many requests, please try again later.' }
+});
+
+app.use('/api/', limiter);
+
 // ========== Health Check ==========
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'AKTU Buddy API is running' });
