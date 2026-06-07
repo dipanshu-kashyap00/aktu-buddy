@@ -64,7 +64,9 @@ const SearchPage = () => {
                   <div>
                     <div className='text-xs text-orange-500 font-semibold mb-1'>{subject.code}</div>
                     <div className='text-sm font-semibold text-gray-800'>{subject.name}</div>
-                    <div className='text-xs text-gray-400 mt-1'>{subject.branch} • Semester {subject.semester}</div>
+                    <div className='text-xs text-gray-400 mt-1'>
+                    {subject.branch} • Semester {subject.semester} • Year {Math.ceil(subject.semester / 2)}
+                    </div>
                   </div>
                   <span className='text-orange-400 text-lg'>→</span>
                 </div>
