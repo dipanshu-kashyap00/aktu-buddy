@@ -26,10 +26,10 @@ const AdminDashboard = () => {
         ? { year: form.year, session: form.session, pdfUrl: form.pdfUrl }
         : { title: form.title, pdfUrl: form.pdfUrl, fileSize: form.fileSize };
 
-      await api.put(`/subjects/${selected}`,
-        { $push: { [type]: payload } },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await api.put(`/subjects/${selected}/add-content`,
+      { type, content: payload },
+      { headers: { Authorization: `Bearer ${token}` } }
+     );
       setMessage('✅ Added successfully!');
       setForm({ title: '', pdfUrl: '', fileSize: '', year: '', session: 'Odd Sem' });
     } catch {

@@ -79,5 +79,14 @@ const startServer = async () => {
         console.log(`📍 http://localhost:${PORT}`);
     });
 };
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err.message);
+  process.exit(1);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err.message);
+  process.exit(1);
+});
 
 startServer();

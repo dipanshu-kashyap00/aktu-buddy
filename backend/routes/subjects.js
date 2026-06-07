@@ -60,12 +60,17 @@ router.post('/', async (req, res) => {
 });
 
 // PUT update subject (admin only)
-router.put('/:code', async (req, res) => {
+router.put('/:code/add-content', async (req, res) => {
     try {
+        const { type, content } = req.body;
+        const allowed = ['notes', 'quantum', 'pyqs'];
+        if (!allowed.includes(type)) {
+            return res.status(400).json({ error: 'Invalid content type' });
+        }
         const subject = await Subject.findOneAndUpdate(
             { code: req.params.code },
-            req.body,
-            { new: true, runValidators: true }
+            { $push: { [type]: content } },
+            { new: true }
         );
         if (!subject) return res.status(404).json({ error: 'Subject not found' });
         res.json(subject);
