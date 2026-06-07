@@ -10,7 +10,9 @@ const SemesterPage = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
+        console.log('Fetching for branch:', branchCode, 'semester:', semesterNum);
         const response = await axios.get(`http://localhost:5001/api/subjects?branch=${branchCode}&semester=${semesterNum}`);
+        console.log('Response data:', response.data);
         setSubjects(response.data);
         setLoading(false);
       } catch (error) {
