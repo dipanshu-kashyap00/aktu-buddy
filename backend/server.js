@@ -36,6 +36,7 @@ const connectDB = async () => {
 };
 
 // ========== Routes ==========
+// ========== Routes ==========
 const subjectRoutes = require('./routes/subjects');
 const branchRoutes = require('./routes/branches');
 const adminRoutes = require('./routes/admin');
