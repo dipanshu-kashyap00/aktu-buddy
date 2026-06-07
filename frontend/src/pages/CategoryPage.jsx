@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSubjectsBySemester, getSubjectByCode } from '../services/subjectAPI';
 
@@ -128,6 +128,7 @@ const SemColumn = ({ semNum, branchCode, category }) => {
 
 const CategoryPage = () => {
   const { branchCode, year, category } = useParams();
+  const navigate = useNavigate();
   const yearNum = parseInt(year);
   const sem1 = yearNum * 2 - 1;
   const sem2 = yearNum * 2;
@@ -138,7 +139,11 @@ const CategoryPage = () => {
   return (
     <div className='min-h-screen bg-gray-50 py-12'>
       <div className='container mx-auto px-4'>
-        <h1 className='text-3xl font-bold text-center text-blue-900 mb-1'>
+            <button onClick={() => navigate(-1)}
+      className='mb-6 text-sm text-gray-500 hover:text-orange-500 transition flex items-center gap-1'>
+      ← Back
+    </button>
+      <h1 className='text-3xl font-bold text-center text-blue-900 mb-1'>
           {emojis[category]} {labels[category]}
         </h1>
         <p className='text-center text-gray-500 mb-10'>{branchCode} — Year {year}</p>

@@ -18,14 +18,13 @@ import NotFoundPage from './pages/NotFoundPage';
 import Breadcrumb from './components/layout/Breadcrumb';
 import { Helmet } from 'react-helmet-async';
 
-
 function App() {
-  <Helmet>
-  <title>AKTU Buddy — Free Notes, PYQs and Quantum for AKTU Students</title>
-  <meta name='description' content='Free study materials for AKTU students. Notes, Previous Year Papers and Quantum Booklets for CSE, IT, ECE and more.' />
-</Helmet>
   return (
     <Router>
+      <Helmet>
+        <title>AKTU Buddy — Free Notes, PYQs and Quantum for AKTU Students</title>
+        <meta name='description' content='Free study materials for AKTU students. Notes, Previous Year Papers and Quantum Booklets for CSE, IT, ECE and more.' />
+      </Helmet>
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <Breadcrumb />
@@ -44,7 +43,6 @@ function App() {
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/disclaimer" element={<DisclaimerPage />} />
             <Route path="/contact" element={<ContactPage />} />
-
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </main>
