@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 const branches = [
   { code: 'CSE', name: 'Computer Science & Engineering', emoji: '💻', status: 'live' },
   { code: 'AI', name: 'CSE (AI/ML)', emoji: '🤖', status: 'live' },
-  { code: 'IT', name: 'Information Technology', emoji: '🖥️', status: 'coming-soon' },
-  { code: 'ECE', name: 'Electronics & Communication', emoji: '📡', status: 'coming-soon' },
-  { code: 'ME', name: 'Mechanical Engineering', emoji: '⚙️', status: 'coming-soon' },
-  { code: 'CE', name: 'Civil Engineering', emoji: '🏗️', status: 'coming-soon' },
+  { code: 'IT', name: 'Information Technology', emoji: '🖥️', status: 'live' },
+  { code: 'ECE', name: 'Electronics & Communication', emoji: '📡', status: 'live' },
+  { code: 'ME', name: 'Mechanical Engineering', emoji: '⚙️', status: 'live' },
+  { code: 'CE', name: 'Civil Engineering', emoji: '🏗️', status: 'live' },
 ];
 
 const stats = [
