@@ -1,7 +1,4 @@
 import { Link } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
-import { MdOutlineDescription, MdOutlineQuiz } from 'react-icons/md';
-import { GiBookshelf } from 'react-icons/gi';
 
 const Navbar = () => {
   return (
@@ -10,29 +7,29 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <GiBookshelf className="text-3xl text-primary" />
-            <span className="font-bold text-xl text-secondary">AKTU Buddy</span>
+            <span className="text-3xl">📚</span>
+            <span className="font-bold text-xl text-blue-900">AKTU Buddy</span>
           </Link>
 
-          {/* Navigation Icons */}
+          {/* Navigation Links */}
           <div className="flex space-x-6">
-            <Link to="/" className="text-gray-600 hover:text-primary transition">
-              <AiOutlineHome className="text-2xl" />
+            <Link to="/" className="text-gray-600 hover:text-orange-500 transition">
+              🏠 Home
             </Link>
-            <Link to="/notes/all" className="text-gray-600 hover:text-primary transition">
-              <MdOutlineDescription className="text-2xl" />
+            <Link to="/notes/all" className="text-gray-600 hover:text-orange-500 transition">
+              📄 Notes
             </Link>
-            <Link to="/quantum/all" className="text-gray-600 hover:text-primary transition">
-              <MdOutlineQuiz className="text-2xl" />
+            <Link to="/quantum/all" className="text-gray-600 hover:text-orange-500 transition">
+              📖 Quantum
             </Link>
-            <Link to="/pyqs/all" className="text-gray-600 hover:text-primary transition">
-              <AiOutlineSearch className="text-2xl" />
+            <Link to="/pyqs/all" className="text-gray-600 hover:text-orange-500 transition">
+              📜 PYQs
             </Link>
-            <Link to="/search" className="text-gray-600 hover:text-primary transition">
-              <AiOutlineSearch className="text-2xl" />
+            <Link to="/search" className="text-gray-600 hover:text-orange-500 transition">
+              🔍 Search
             </Link>
-            <Link to="/admin" className="text-gray-600 hover:text-primary transition">
-              <AiOutlineUser className="text-2xl" />
+            <Link to="/admin" className="text-gray-600 hover:text-orange-500 transition">
+              👤 Admin
             </Link>
           </div>
         </div>
