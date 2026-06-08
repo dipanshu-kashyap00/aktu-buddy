@@ -49,7 +49,8 @@ router.get('/branch/:branch/semester/:semester', async (req, res) => {
 });
 
 // POST create new subject (admin only - add auth later)
-router.post('/', async (req, res) => {
+const auth = require("../middleware/auth");
+router.post('/',auth,async (req, res) => {
     try {
         const subject = new Subject(req.body);
         await subject.save();
@@ -60,7 +61,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT update subject (admin only)
-router.put('/:code/add-content', async (req, res) => {
+router.put('/:code/add-content',auth,async (req, res) => {
     try {
         const { type, content } = req.body;
         const allowed = ['notes', 'quantum', 'pyqs'];

@@ -11,12 +11,12 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('adminToken');
 
- useEffect(() => {
+useEffect(() => {
   if (!token) { navigate('/admin'); return; }
   api.get('/subjects')
     .then(r => setSubjects(r.data))
     .catch((err) => console.error('Failed to load subjects:', err));
-}, []);
+}, [token, navigate]); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();

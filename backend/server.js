@@ -17,8 +17,11 @@ app.use(cors({
     credentials: true
 }));
 app.use(morgan('dev'));
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+// app.use(express.json({ limit: '50mb' }));
+// app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(express.json({ limit: '10kb' }));        // regular routes
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
 
 // ========== MongoDB Connection ==========
 const connectDB = async () => {
@@ -39,6 +42,7 @@ const subjectRoutes = require('./routes/subjects');
 const branchRoutes = require('./routes/branches');
 const adminRoutes = require('./routes/admin');
 
+app.use('/api/', limiter); 
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/branches', branchRoutes);
 app.use('/api/admin', adminRoutes);
@@ -52,7 +56,7 @@ const limiter = rateLimit({
   message: { error: 'Too many requests, please try again later.' }
 });
 
-app.use('/api/', limiter);
+
 
 // ========== Health Check ==========
 app.get('/api/health', (req, res) => {
