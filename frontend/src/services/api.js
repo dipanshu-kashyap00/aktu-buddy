@@ -2,7 +2,7 @@ import axios from 'axios';
 import { setupCache } from 'axios-cache-interceptor';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5001/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -11,11 +11,11 @@ const api = axios.create({
 
 // Set up caching for GET requests
 const cachedApi = setupCache(api, {
-  ttl: 5 * 60 * 1000, // 5 minutes
+  ttl: 5 * 60 * 1000,
   methods: ['get'],
 });
 
-// Add auth interceptor
+// Auth interceptor
 cachedApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('adminToken');
@@ -27,9 +27,11 @@ cachedApi.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Add response interceptor
+// Response interceptor — DO NOT unwrap .data here
+// Let each service call handle the response directly
+// so CategoryPage.jsx r.data works correctly
 cachedApi.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   (error) => {
     console.error('API Error:', error.response?.data?.error || error.message);
     if (error.response?.status === 401) {
