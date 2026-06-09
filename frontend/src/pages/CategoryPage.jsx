@@ -1,9 +1,9 @@
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getSubjectsBySemester, getSubjectByCode } from '../services/subjectAPI';
 
 const FileItem = ({ pdfUrl, title, fileSize, year, session }) => (
-  <div className='flex items-center gap-2 p-2 rounded hover:bg-orange-50'>
+  <div className='flex items-center gap-2 p-2 rounded hover:bg-orange-50 active:bg-orange-50'>
     <div className='w-7 h-7 bg-red-100 rounded flex items-center justify-center flex-shrink-0'>
       <span className='text-red-500 text-xs font-bold'>PDF</span>
     </div>
@@ -13,8 +13,12 @@ const FileItem = ({ pdfUrl, title, fileSize, year, session }) => (
       </div>
       {fileSize && <div className='text-xs text-gray-400'>{fileSize}</div>}
     </div>
-    <a href={pdfUrl} target='_blank' rel='noopener noreferrer'
-      className='text-orange-500 text-xs font-semibold hover:underline flex-shrink-0'>
+    <a
+      href={pdfUrl}
+      target='_blank'
+      rel='noopener noreferrer'
+      className='text-orange-500 text-xs font-semibold hover:underline flex-shrink-0 px-2 py-1'
+    >
       Open
     </a>
   </div>
@@ -51,13 +55,16 @@ const SubjectFiles = ({ subjectCode, subjectName, category }) => {
 
   return (
     <div className='bg-white rounded-lg border border-gray-100 overflow-hidden mb-2'>
-      <button onClick={toggle}
-        className='w-full flex justify-between items-center p-3 hover:bg-gray-50 text-left'>
-        <div>
+      {/* Larger tap target on mobile */}
+      <button
+        onClick={toggle}
+        className='w-full flex justify-between items-center p-3 md:p-4 hover:bg-gray-50 active:bg-gray-100 text-left'
+      >
+        <div className='min-w-0 flex-1 pr-2'>
           <div className='text-xs text-orange-500 font-semibold'>{subjectCode}</div>
-          <div className='text-sm font-medium text-gray-700'>{subjectName}</div>
+          <div className='text-sm font-medium text-gray-700 leading-tight mt-0.5'>{subjectName}</div>
         </div>
-        <span className='text-gray-400'>{open ? '▴' : '▾'}</span>
+        <span className='text-gray-400 text-lg flex-shrink-0'>{open ? '▴' : '▾'}</span>
       </button>
 
       {open && (
@@ -94,37 +101,47 @@ const SemColumn = ({ semNum, branchCode, category }) => {
     <div className='space-y-2'>
       <div className='h-8 bg-gray-200 rounded animate-pulse mb-3' />
       {[1, 2, 3].map(i => (
-        <div key={i} className='h-10 bg-gray-100 rounded animate-pulse' />
+        <div key={i} className='h-12 bg-gray-100 rounded animate-pulse' />
       ))}
     </div>
   );
 
   if (error) return (
     <div className='text-center py-8 text-red-400 text-sm'>
-      Failed to load Semester {semNum} subjects. Check your connection.
+      Failed to load Semester {semNum} subjects.
     </div>
   );
 
   return (
     <div>
-      <h2 className='text-lg font-bold text-blue-900 mb-3 pb-2 border-b flex items-center gap-2'>
-        <span className='bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full'>Sem {semNum}</span>
-        {subjects.length} Subjects
+      <h2 className='text-base md:text-lg font-bold text-blue-900 mb-3 pb-2 border-b flex items-center gap-2'>
+        <span className='bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full whitespace-nowrap'>
+          Sem {semNum}
+        </span>
+        <span className='text-gray-500 font-normal text-sm'>{subjects.length} Subjects</span>
       </h2>
+
       {subjects.length === 0 ? (
-      <div className='text-center py-8'>
-        <div className='text-4xl mb-2'>🔜</div>
-        <p className='text-sm text-gray-400'>Content for Semester {semNum} coming soon.</p>
-        <p className='text-xs text-gray-300 mt-1'>We are working on adding more branches.</p>
-      </div>
-          ) : (
+        <div className='text-center py-8'>
+          <div className='text-3xl mb-2'>🔜</div>
+          <p className='text-sm text-gray-400'>Content coming soon.</p>
+        </div>
+      ) : (
         subjects.map(s => (
-          <SubjectFiles key={s.code} subjectCode={s.code} subjectName={s.name} category={category} />
+          <SubjectFiles
+            key={s.code}
+            subjectCode={s.code}
+            subjectName={s.name}
+            category={category}
+          />
         ))
       )}
     </div>
   );
 };
+
+const labels = { notes: 'Notes', pyq: 'Previous Year Papers', quantum: 'Quantum Booklets', syllabus: 'Syllabus' };
+const emojis = { notes: '📚', pyq: '📝', quantum: '📖', syllabus: '📋' };
 
 const CategoryPage = () => {
   const { branchCode, year, category } = useParams();
@@ -133,24 +150,28 @@ const CategoryPage = () => {
   const sem1 = yearNum * 2 - 1;
   const sem2 = yearNum * 2;
 
-  const labels = { notes: 'Notes', pyq: 'Previous Year Papers', quantum: 'Quantum Booklets', syllabus: 'Syllabus' };
-  const emojis = { notes: '📚', pyq: '📝', quantum: '📖', syllabus: '📋' };
-
   return (
-    <div className='min-h-screen bg-gray-50 py-12'>
-      <div className='container mx-auto px-4'>
-            <button onClick={() => navigate(-1)}
-      className='mb-6 text-sm text-gray-500 hover:text-orange-500 transition flex items-center gap-1'>
-      ← Back
-    </button>
-      <h1 className='text-3xl font-bold text-center text-blue-900 mb-1'>
+    <div className='min-h-screen bg-gray-50 py-8 md:py-12'>
+      <div className='max-w-6xl mx-auto px-4'>
+
+        <button onClick={() => navigate(-1)}
+          className='mb-5 text-sm text-gray-500 hover:text-orange-500 transition flex items-center gap-1'>
+          ← Back
+        </button>
+
+        <h1 className='text-2xl md:text-3xl font-bold text-center text-blue-900 mb-1'>
           {emojis[category]} {labels[category]}
         </h1>
-        <p className='text-center text-gray-500 mb-10'>{branchCode} — Year {year}</p>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto'>
+        <p className='text-center text-gray-500 mb-6 md:mb-10 text-sm'>
+          {branchCode} — Year {year}
+        </p>
+
+        {/* Stack on mobile, side-by-side on md+ */}
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto'>
           <SemColumn semNum={sem1} branchCode={branchCode} category={category} />
           <SemColumn semNum={sem2} branchCode={branchCode} category={category} />
         </div>
+
       </div>
     </div>
   );

@@ -8,3 +8,6 @@ export const getSubjectByCode = (code) =>
 
 export const searchSubjects = (query) =>
   api.get(`/subjects?search=${encodeURIComponent(query)}`);
+
+
+
