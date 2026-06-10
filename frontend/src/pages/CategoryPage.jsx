@@ -61,7 +61,10 @@ const SubjectFiles = ({ subjectCode, subjectName, category }) => {
         className='w-full flex justify-between items-center p-3 md:p-4 hover:bg-gray-50 active:bg-gray-100 text-left'
       >
         <div className='min-w-0 flex-1 pr-2'>
-          <div className='text-xs text-orange-500 font-semibold'>{subjectCode}</div>
+          {/* <div className='text-xs text-orange-500 font-semibold'>{subjectCode}</div> */}
+          <div className='text-xs text-orange-500 font-semibold'>
+          {subjectCode.split('-')[0]}
+        </div>
           <div className='text-sm font-medium text-gray-700 leading-tight mt-0.5'>{subjectName}</div>
         </div>
         <span className='text-gray-400 text-lg flex-shrink-0'>{open ? '▴' : '▾'}</span>
