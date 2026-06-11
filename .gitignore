@@ -4,3 +4,5 @@ uploads/temp/
 dist/
 .vscode/
 *.log
+.DS_Store
+**/.DS_Store
